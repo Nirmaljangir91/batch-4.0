@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
   passwordHash: {
     type: String,
   },
+  accountTypes : {
+    type : String,
+    enum : ['REGISTERD', 'GUEST'],
+    default : 'REGISTERD'
+  },
   role : {
     type : String ,
     enum : ['customer' , 'admin'],
@@ -22,7 +27,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
   },
   totalSpend : {
-    type : Number
+    type : Number 
   },
   totalOrders : {
     type : Number
@@ -33,9 +38,16 @@ const userSchema = new mongoose.Schema({
   refreshToken: {
     type: String,
   },
+  refreshTokenExpiryTime: {
+    type: Date,
+  },
+  lastlogin: {
+    type: Date,
+    default : Date.now()
+  }
 },{ timestamps: true });
 
-// export const User = mongoose.model("User", useSdhema);
+// export const User = mongoose.model("User", userSchema);
 
 const User = mongoose.model("User", userSchema)
 export default User;

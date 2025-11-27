@@ -1,16 +1,17 @@
-const express = require('express')
-const app = express()
-const port = 5000
+import express from 'express';
+import dbConnect from './config/database.js';
+import authRoutes from './routes/auth.route.js';
+const app = express();
+//NOTE fn used for mongodb connection
+dbConnect();
+app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+  res.send('THIS IS MY HOMEPAGE');
+});
 
-app.get('/api', (req, res) => {
-  res.send('Hello World from API!')
-})
+app.use('/api/v1/auth', authRoutes);
 
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(3000, () => {
+  console.log(`Server is running on 3000`);
+});
